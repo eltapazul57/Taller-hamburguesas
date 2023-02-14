@@ -19,7 +19,7 @@ public class Pedido
 	
 	
 	
-	public Pedido(String nombreCliente,String direccionCliente, int idPedido, int numeroPedidos )
+	public Pedido(String nombreCliente,String direccionCliente, int idPedido)
 	{
 		this.nombreCliente = nombreCliente;
 		this.direccionCliente = direccionCliente;
@@ -81,5 +81,11 @@ public class Pedido
 	public void generarIdFactura()
 	{
 		idPedido = Integer.parseInt(UUID.randomUUID().toString());
+	}
+	public String getIdFactura()
+	{
+		String fact= "";
+		fact=Integer.toString(idPedido);
+		return fact;
 	}
 }

@@ -10,10 +10,13 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
+
 import modelo.Ingrediente;
 import modelo.Pedido;
 import modelo.ProductoMenu;
 import modelo.Combo;
+
 
 public class Restaurante 
 {
@@ -35,7 +38,6 @@ public class Restaurante
     }
     public static void cargarInfoRestaurante() throws FileNotFoundException, IOException
     {	
-    	
     	cargarIng();
     	cargarMenu();
     	cargarCombos();
@@ -111,8 +113,31 @@ public class Restaurante
         		mapaCombos.put(nombre, combo);	
         	}
         }
-        System.out.println("Se cargaron los combos");
+        System.out.println("Se cargaron los combos");        
+    }
+    public static void crearPedido()
+    {
+    	Scanner inputNombre = new Scanner(System.in);
+    	System.out.println("Ingrese su nombre");
+        String nombreCliente = inputNombre.nextLine();
         
+        Scanner inputDireccion = new Scanner(System.in);
+    	System.out.println("Ingrese su direccion");
+        String direccionCliente = inputDireccion.nextLine();
+        int idPedido = 0;
+        System.out.println("añañañañ");
+        Pedido pedido = new Pedido(nombreCliente, direccionCliente, idPedido);
+        System.out.println(pedido.getNombreCliente());
+        System.out.println("sapoperro0");
+        pedido.generarIdFactura();
+        System.out.println("sapoperro1");
+        String facturaParaPoner = pedido.getIdFactura();
+        System.out.println("sapoperro2");
+        mapaPedidos.put(facturaParaPoner, pedido);
+        System.out.println("sapoperro3");
+        System.out.println(pedido.getIdFactura());
+        System.out.println(" ");
+        System.out.println(pedido);
         
     }
  

@@ -30,6 +30,14 @@ public class Combo implements Producto
 		// TODO Auto-generated method stub
 		return Integer.toString(precioTotal) ;
 	}
+
+
+
+	@Override
+	public String getTextoFactura() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

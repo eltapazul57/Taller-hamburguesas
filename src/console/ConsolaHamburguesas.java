@@ -34,6 +34,10 @@ public class ConsolaHamburguesas
                 {
                 	ejecutarMostrarMenu();
                 }
+                else if (opcionseleccionada ==2)
+                {
+                	ejecutarNuevoPedido();
+                }
                 else if (opcionseleccionada ==6)
                 {
                     System.out.println("Saliendo de la aplicación");
@@ -93,6 +97,10 @@ public class ConsolaHamburguesas
 			System.out.println("Aqui pasó algo malo");
 			System.out.println(e.getMessage());
 		}
+    }
+    private void ejecutarNuevoPedido()
+    {
+    	Restaurante.crearPedido(); 
     }
    
 

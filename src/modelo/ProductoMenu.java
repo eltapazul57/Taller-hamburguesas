@@ -20,5 +20,10 @@ public class ProductoMenu implements Producto
 		// TODO Auto-generated method stub
 		return Integer.toString(precioBase);
 	}
+	@Override
+	public String getTextoFactura() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
