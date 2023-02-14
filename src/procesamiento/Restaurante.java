@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import modelo.Ingrediente;
+import modelo.Pedido;
 import modelo.ProductoMenu;
 import modelo.Combo;
 
@@ -21,7 +22,7 @@ public class Restaurante
 	private static Map <String, Ingrediente> mapaIngredientes = new LinkedHashMap<>();
 	private static Map <String, ProductoMenu> mapaMenu = new LinkedHashMap<>();
 	private static Map <String, Combo> mapaCombos= new LinkedHashMap<>();
-	
+	private static Map <String, Pedido> mapaPedidos = new LinkedHashMap<>();
 	
     public static void mostrarMenu() throws FileNotFoundException, IOException//muestra el menú en consol
     {
