@@ -194,27 +194,29 @@ public class Restaurante
     	int opcionAgregar = Integer.parseInt(numeroAgregar);
     	if ( 0<opcionAgregar || opcionAgregar<42) // || significa or
     	{
-    		if (0<opcionAgregar || opcionAgregar<23)
+    		if (0<opcionAgregar && opcionAgregar<23)
     		{	
     			String nombreProductoParaAgregar = mapaAgregarPedidos.get(Integer.toString(opcionAgregar));
     			ProductoMenu productoParaAgregar = new ProductoMenu(nombreProductoParaAgregar,Integer.parseInt((mapaMenu.get(nombreProductoParaAgregar)).getPrecio()));
     			pedidoParaAgregar.agregarProductoMenu(productoParaAgregar);
     		}
-    		else if (22<opcionAgregar||opcionAgregar<27)
+    		if (22<opcionAgregar&&opcionAgregar<27)
     		{
+
     			String nombreComboParaAgregar = mapaAgregarPedidos.get(Integer.toString(opcionAgregar));
     			Combo comboParaAgregar = new Combo(nombreComboParaAgregar, Integer.parseInt((mapaCombos.get(nombreComboParaAgregar)).getPrecio()));
     			pedidoParaAgregar.agregarNuevoCombo(comboParaAgregar);
     			
     		}
-    		else if (26<opcionAgregar || opcionAgregar <42)
+    		else if (26<opcionAgregar && opcionAgregar <42)
     		{    			
     			String nombreIngredienteParaAgregar = mapaAgregarPedidos.get(Integer.toString(opcionAgregar));
     			Ingrediente ingredienteAgregar = new Ingrediente(nombreIngredienteParaAgregar, (mapaIngredientes.get(nombreIngredienteParaAgregar)).getCostoAdicional());
     			pedidoParaAgregar.agregarNuevoIngrediente(ingredienteAgregar);
     		}
+    		else
+    			;
     	}
-    	System.out.println(pedidoParaAgregar.getPrecioTotal());
     	
     	return pedidoParaAgregar;
     }
@@ -229,10 +231,19 @@ public class Restaurante
     	PrintWriter writer = new PrintWriter("./facturas/"+facturaParaGuardar+".txt", "UTF-8");
 		writer.println("----------FACTURA #"+String.valueOf(facturaParaGuardar)+"----------");
 		writer.println("Los productos son: ");
-		System.out.println(pedidoParaCerrar.getTextoFactura());
 		writer.println(pedidoParaCerrar.getTextoFactura());
+		writer.println(precioTotal);
+		writer.println("Gracias por comprar nuestros productos. ");
 		writer.close();
     	
+    }
+    public static void consultarPedido(String idFactura)
+    {
+    	Pedido pedidoAConsultar = mapaPedidos.get(idFactura);
+    	System.out.println("El precio total del pedido es: \n ");
+    	System.out.println(pedidoAConsultar.getPrecioTotal());
+    	System.out.println("El nombre del que lo pidió es: ");
+    	System.out.println(pedidoAConsultar.getNombreCliente());
     }
  
     

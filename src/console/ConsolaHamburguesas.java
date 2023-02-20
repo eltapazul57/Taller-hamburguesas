@@ -53,6 +53,14 @@ public class ConsolaHamburguesas
                 {
                 	ejecutarCerrarPedido(pedidoActual);
                 }
+                else if (opcionseleccionada == 5)
+                {
+                	Scanner inputId = new Scanner(System.in);
+                    System.out.println("Digite el id del pedido\n");
+                    String idenStr = inputId.nextLine();
+                    
+                	ejecutarConsultarPedido(idenStr);
+                }
                 else if (opcionseleccionada ==6)
                 {
                     System.out.println("Saliendo de la aplicación");
@@ -134,6 +142,10 @@ public class ConsolaHamburguesas
     private void ejecutarCerrarPedido(Pedido pedidoActual) throws FileNotFoundException, UnsupportedEncodingException
     {
     	Restaurante.cerrarPedido(pedidoActual);
+    }
+    private void ejecutarConsultarPedido(String idFactura)
+    {
+    	Restaurante.consultarPedido(idFactura);
     }
    
 

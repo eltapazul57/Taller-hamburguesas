@@ -27,6 +27,7 @@ public class Pedido implements Producto
 		this.idPedido = idPedido;
 		this.numeroPedidos = numeroPedidos;
 		this.productosMenu = new ArrayList<>();
+		this.combosPedido = new ArrayList<>();
 		this.ingredienteAdicional = new ArrayList<>();
 		this.pedidosTotales = new ArrayList<>();
 		

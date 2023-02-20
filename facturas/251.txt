@@ -1,0 +1,6 @@
+----------FACTURA #251----------
+Los productos son: 
+corral queso 16000
+
+19040
+Gracias por comprar nuestros productos. 

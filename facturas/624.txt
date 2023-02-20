@@ -1,6 +1,0 @@
-----------FACTURA #624----------
-Los productos son: 
-corral queso16000
-corralita13000
-especial24000
-
