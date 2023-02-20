@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -26,15 +28,60 @@ public class Restaurante
 	private static Map <String, ProductoMenu> mapaMenu = new LinkedHashMap<>();
 	private static Map <String, Combo> mapaCombos= new LinkedHashMap<>();
 	private static Map <String, Pedido> mapaPedidos = new LinkedHashMap<>();
+	private static Map <String, String> mapaAgregarPedidos = new LinkedHashMap<>();
 	
-    public static void mostrarMenu() throws FileNotFoundException, IOException//muestra el menú en consol
+    public static void mostrarMenuCompleto() throws FileNotFoundException, IOException//muestra el menú en consola y los combos e ingredientes añañay mi farafafafafafafaf
     {
-        BufferedReader br = new BufferedReader(new FileReader("./data/menu.txt"));
+        BufferedReader brMenu = new BufferedReader(new FileReader("./data/menu.txt"));
 		String linea = "";
-        while((linea = br.readLine()) != null)
-            {
-                System.out.println(linea);
+		int numeroMenu = 1;
+		String numeroParaMapa = "";
+		System.out.println("Productos del menú");
+        while((linea = brMenu.readLine()) != null)
+            {	
+        		numeroParaMapa = Integer.toString(numeroMenu);
+        		String itemSinPyC =  linea.split(";")[0];
+        		String itemDelMapa = mapaAgregarPedidos.get(numeroParaMapa);
+        		if (itemDelMapa == null)
+        		{	
+        			mapaAgregarPedidos.put(numeroParaMapa,itemSinPyC);
+        		}
+                System.out.println((numeroMenu)+". " + linea);
+                numeroMenu +=1;
             }
+        System.out.println("______________");
+        System.out.println("Combos");
+        BufferedReader brCombos = new BufferedReader(new FileReader("./data/combos.txt"));
+		String linea2 = "";
+		while((linea2 = brCombos.readLine()) != null)
+        {
+			numeroParaMapa = Integer.toString(numeroMenu);
+    		String itemSinPyC =  linea2.split(";")[0];
+    		String itemDelMapa = mapaAgregarPedidos.get(numeroParaMapa);
+    		if (itemDelMapa == null)
+    		{
+    			mapaAgregarPedidos.put(numeroParaMapa,itemSinPyC);
+    		}
+            System.out.println((numeroMenu)+". " + linea2);
+            numeroMenu +=1;
+        }
+		System.out.println("______________");
+        System.out.println("Ingredientes extras");
+        BufferedReader brIngredientes = new BufferedReader(new FileReader("./data/ingredientes.txt"));
+		String linea3 = "";
+		while((linea3 = brIngredientes.readLine()) != null)
+        {
+			numeroParaMapa = Integer.toString(numeroMenu);
+    		String itemSinPyC =  linea3.split(";")[0];
+    		String itemDelMapa = mapaAgregarPedidos.get(numeroParaMapa);
+    		if (itemDelMapa == null)
+    		{
+    			mapaAgregarPedidos.put(numeroParaMapa,itemSinPyC);
+    		}
+            System.out.println((numeroMenu)+". " + linea3);
+            numeroMenu +=1;
+        }
+        
     }
     public static void cargarInfoRestaurante() throws FileNotFoundException, IOException
     {	
@@ -43,7 +90,7 @@ public class Restaurante
     	cargarCombos();
     }
     
-    public static void cargarIng() throws FileNotFoundException, IOException
+    public static void cargarIng() throws FileNotFoundException, IOException //se agregó el argumetno de archivo
     {
     	BufferedReader brIng = new BufferedReader(new FileReader("./data/ingredientes.txt"));
 		String linea = "";
@@ -63,7 +110,7 @@ public class Restaurante
             }
         System.out.println("Se cargaron los ingredientes\n");
     }
-    public static void cargarMenu() throws FileNotFoundException, IOException
+    public static void cargarMenu() throws FileNotFoundException, IOException //se agregó el argumetno de archivo
     {
     	BufferedReader brMenu = new BufferedReader(new FileReader("./data/menu.txt"));
 		String linea = "";
@@ -81,12 +128,10 @@ public class Restaurante
             	productMenu = new ProductoMenu(nombre,precioBase);
             	mapaMenu.put(nombre, productMenu);
             }
-            //System.out.println(productMenu.getNombre());
-            //System.out.println(productMenu.getPrecio());
         }
         System.out.println("Se cargó el menú \n");
     }
-    public static void cargarCombos() throws FileNotFoundException, IOException
+    public static void cargarCombos() throws FileNotFoundException, IOException //se agregó el argumetno de archivo
     {
     	BufferedReader brCombos = new BufferedReader(new FileReader("./data/combos.txt"));
 		String linea = "";
@@ -115,30 +160,79 @@ public class Restaurante
         }
         System.out.println("Se cargaron los combos");        
     }
-    public static void crearPedido()
+    public static String crearPedido()
     {
     	Scanner inputNombre = new Scanner(System.in);
     	System.out.println("Ingrese su nombre");
         String nombreCliente = inputNombre.nextLine();
-        
         Scanner inputDireccion = new Scanner(System.in);
     	System.out.println("Ingrese su direccion");
         String direccionCliente = inputDireccion.nextLine();
         int idPedido = 0;
-        System.out.println("añañañañ");
         Pedido pedido = new Pedido(nombreCliente, direccionCliente, idPedido);
-        System.out.println(pedido.getNombreCliente());
-        System.out.println("sapoperro0");
         pedido.generarIdFactura();
-        System.out.println("sapoperro1");
         String facturaParaPoner = pedido.getIdFactura();
-        System.out.println("sapoperro2");
         mapaPedidos.put(facturaParaPoner, pedido);
-        System.out.println("sapoperro3");
-        System.out.println(pedido.getIdFactura());
-        System.out.println(" ");
-        System.out.println(pedido);
-        
+        String facturaReturn = pedido.getIdFactura();
+        System.out.println("El id de su pedido es: \n");
+        System.out.println(facturaReturn);
+        return facturaReturn;
+    }
+    public static Pedido agregarPedido(String facturaID)
+    {
+    	try {
+			mostrarMenuCompleto();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	Pedido pedidoParaAgregar = mapaPedidos.get(facturaID);
+    	System.out.println(pedidoParaAgregar.getPrecioTotal());
+    	Scanner inputPMenuAgregar = new Scanner(System.in);
+    	System.out.println("Ingrese el número del producto para agregar");
+    	String numeroAgregar= inputPMenuAgregar.nextLine();
+    	int opcionAgregar = Integer.parseInt(numeroAgregar);
+    	if ( 0<opcionAgregar || opcionAgregar<42) // || significa or
+    	{
+    		if (0<opcionAgregar || opcionAgregar<23)
+    		{	
+    			String nombreProductoParaAgregar = mapaAgregarPedidos.get(Integer.toString(opcionAgregar));
+    			ProductoMenu productoParaAgregar = new ProductoMenu(nombreProductoParaAgregar,Integer.parseInt((mapaMenu.get(nombreProductoParaAgregar)).getPrecio()));
+    			pedidoParaAgregar.agregarProductoMenu(productoParaAgregar);
+    		}
+    		else if (22<opcionAgregar||opcionAgregar<27)
+    		{
+    			String nombreComboParaAgregar = mapaAgregarPedidos.get(Integer.toString(opcionAgregar));
+    			Combo comboParaAgregar = new Combo(nombreComboParaAgregar, Integer.parseInt((mapaCombos.get(nombreComboParaAgregar)).getPrecio()));
+    			pedidoParaAgregar.agregarNuevoCombo(comboParaAgregar);
+    			
+    		}
+    		else if (26<opcionAgregar || opcionAgregar <42)
+    		{    			
+    			String nombreIngredienteParaAgregar = mapaAgregarPedidos.get(Integer.toString(opcionAgregar));
+    			Ingrediente ingredienteAgregar = new Ingrediente(nombreIngredienteParaAgregar, (mapaIngredientes.get(nombreIngredienteParaAgregar)).getCostoAdicional());
+    			pedidoParaAgregar.agregarNuevoIngrediente(ingredienteAgregar);
+    		}
+    	}
+    	System.out.println(pedidoParaAgregar.getPrecioTotal());
+    	
+    	return pedidoParaAgregar;
+    }
+    public static void cerrarPedido(Pedido pedidoParaCerrar) throws FileNotFoundException, UnsupportedEncodingException
+    {	
+    	String facturaParaGuardar = pedidoParaCerrar.getIdFactura();
+    	pedidoParaCerrar.calcularPrecioTotal();
+    	pedidoParaCerrar.calcularIva();
+    	int precioTotal = pedidoParaCerrar.getPrecioTotal();
+    	System.out.println("El precio total de su pedido fue: \n");
+    	System.out.println(precioTotal);
+    	PrintWriter writer = new PrintWriter("./facturas/"+facturaParaGuardar+".txt", "UTF-8");
+		writer.println("----------FACTURA #"+String.valueOf(facturaParaGuardar)+"----------");
+		writer.println("Los productos son: ");
+		System.out.println(pedidoParaCerrar.getTextoFactura());
+		writer.println(pedidoParaCerrar.getTextoFactura());
+		writer.close();
+    	
     }
  
     

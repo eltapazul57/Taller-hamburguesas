@@ -1,0 +1,5 @@
+----------FACTURA #857----------
+Los productos son: 
+corral queso16000
+especial24000
+

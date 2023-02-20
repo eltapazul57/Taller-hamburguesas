@@ -1,22 +1,29 @@
 package console;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import modelo.Pedido;
 import procesamiento.Restaurante;
+
+
 
 
 
 public class ConsolaHamburguesas 
 {
-    public void ejecutarAplicacion()
+	String facturaID = "";
+	Pedido pedidoActual; 
+    public void ejecutarAplicacion() throws FileNotFoundException, UnsupportedEncodingException
     {
     	ejecutarCargarDatos();
         System.out.println("Restaurante de hamburguesas\n");
@@ -37,6 +44,14 @@ public class ConsolaHamburguesas
                 else if (opcionseleccionada ==2)
                 {
                 	ejecutarNuevoPedido();
+                }
+                else if (opcionseleccionada ==3)
+                {
+                	ejecutarAgregarPedido(facturaID);
+                }
+                else if (opcionseleccionada == 4)
+                {
+                	ejecutarCerrarPedido(pedidoActual);
                 }
                 else if (opcionseleccionada ==6)
                 {
@@ -69,7 +84,7 @@ public class ConsolaHamburguesas
         System.out.println("Cargando el menú");
         try
         {
-            Restaurante.mostrarMenu();
+            Restaurante.mostrarMenuCompleto();
         }
         catch (FileNotFoundException e)
 		{
@@ -84,6 +99,7 @@ public class ConsolaHamburguesas
     
     private void ejecutarCargarDatos()// carga los datos de los 3 archivos en un hashmap para poder acceder a los precios
     {
+    	;
     	try
         {
             Restaurante.cargarInfoRestaurante();
@@ -100,16 +116,33 @@ public class ConsolaHamburguesas
     }
     private void ejecutarNuevoPedido()
     {
-    	Restaurante.crearPedido(); 
+    	try 
+    	{
+    		facturaID = Restaurante.crearPedido();
+		} 
+    	catch (Exception e) 
+    	{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+    }
+    private void ejecutarAgregarPedido(String facturaID)
+    {
+    	System.out.println("Se va a cerrar el pedido");
+    	pedidoActual = Restaurante.agregarPedido(facturaID);
+    }
+    private void ejecutarCerrarPedido(Pedido pedidoActual) throws FileNotFoundException, UnsupportedEncodingException
+    {
+    	Restaurante.cerrarPedido(pedidoActual);
     }
    
 
-    public static void main(String[] args)
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException
     {
         ConsolaHamburguesas consola = new ConsolaHamburguesas();
         consola.ejecutarAplicacion();
     }
-
+  
 
 
 
