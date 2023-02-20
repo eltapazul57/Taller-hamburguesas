@@ -1,9 +1,0 @@
-----------FACTURA #590----------
-Los productos son: 
-corral queso 16000
-corral queso 16000
-corralita 13000
-todoterreno 25000
-
-83300
-Gracias por comprar nuestros productos. 

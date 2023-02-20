@@ -1,7 +1,0 @@
-----------FACTURA #237----------
-Los productos son: 
-corral queso 16000
-1/2 libra 25000
-
-48790
-Gracias por comprar nuestros productos. 

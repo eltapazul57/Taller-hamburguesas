@@ -1,7 +1,0 @@
-----------FACTURA #437----------
-Los productos son: 
-corral queso 16000
-corralita 13000
-
-34510
-Gracias por comprar nuestros productos. 
